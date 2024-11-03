@@ -31,4 +31,19 @@ public class CategoryService implements ICategoryService {
         Category category = categoryRepository.findById(id).orElseThrow(() -> new Exception("Category not found!"));
         return new CategoryResponseDTO(category.getId(), category.getTitle(), category.getDescription(), category.getOwnerId());
     }
+
+    public CategoryResponseDTO update(String id, CategoryRequestDTO categoryRequestDTO) throws Exception {
+        Category category = categoryRepository.findById(id).orElseThrow(() -> new Exception("Category not found!"));
+
+        category.setDescription(categoryRequestDTO.description());
+        category.setTitle(categoryRequestDTO.title());
+        category.setOwnerId(categoryRequestDTO.ownerId());
+
+        categoryRepository.save(category);
+        return new CategoryResponseDTO(category.getId(), category.getTitle(), category.getDescription(), category.getOwnerId());
+    }
+
+    public void delete(String id) {
+        categoryRepository.deleteById(id);
+    }
 }

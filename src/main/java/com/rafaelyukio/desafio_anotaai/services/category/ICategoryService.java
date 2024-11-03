@@ -11,4 +11,6 @@ public interface ICategoryService {
     CategoryResponseDTO create(CategoryRequestDTO categoryRequestDTO);
     List<CategoryResponseDTO> getAll();
     CategoryResponseDTO getById(String id) throws Exception;
+    CategoryResponseDTO update(String id, CategoryRequestDTO categoryRequestDTO) throws Exception;
+    void delete(String id);
 }

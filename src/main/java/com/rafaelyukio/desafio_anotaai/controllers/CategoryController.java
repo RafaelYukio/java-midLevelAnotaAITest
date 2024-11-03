@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/category")
@@ -18,8 +17,8 @@ public class CategoryController {
     private ICategoryService categoryService;
 
     @PostMapping
-    public ResponseEntity<CategoryResponseDTO> Create(@RequestBody CategoryRequestDTO category) {
-        CategoryResponseDTO response = categoryService.create(category);
+    public ResponseEntity<CategoryResponseDTO> Create(@RequestBody CategoryRequestDTO categoryRequestDTO) {
+        CategoryResponseDTO response = categoryService.create(categoryRequestDTO);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
@@ -33,5 +32,17 @@ public class CategoryController {
     public ResponseEntity<CategoryResponseDTO> getById(@PathVariable String id) throws Exception {
         CategoryResponseDTO response = categoryService.getById(id);
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CategoryResponseDTO> update(@PathVariable String id, @RequestBody CategoryRequestDTO categoryRequestDTO) throws Exception {
+        CategoryResponseDTO response = categoryService.update(id, categoryRequestDTO);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<CategoryResponseDTO> delete(@PathVariable String id) throws Exception {
+        categoryService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
